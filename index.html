@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PET!TVOYOU — creative lab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #F1EDE2;
+    --paper-line: #C7CEC5;
+    --ink: #20262A;
+    --blueprint: #2E4C6D;
+    --amber: #D98E2B;
+    --stamp: #B5432F;
+    --card: #FBF9F3;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    background:
+      linear-gradient(var(--paper-line) 1px, transparent 1px) 0 0 / 28px 28px,
+      linear-gradient(90deg, var(--paper-line) 1px, transparent 1px) 0 0 / 28px 28px,
+      var(--paper);
+    background-attachment: fixed;
+    color: var(--ink);
+    font-family: 'Fraunces', serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 6vh 5vw 4vh;
+  }
+
+  .mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* ---------- specimen card ---------- */
+
+  .specimen {
+    position: relative;
+    background: var(--card);
+    max-width: 480px;
+    width: 100%;
+    padding: 3rem 2.5rem 2.5rem;
+    border: 1.5px solid var(--ink);
+    transform: rotate(-1.3deg);
+    box-shadow: 8px 8px 0 rgba(32,38,42,0.08);
+    animation: settle 0.7s cubic-bezier(.2,.8,.2,1) both;
+  }
+
+  @keyframes settle {
+    from { transform: rotate(-6deg) translateY(-12px); opacity: 0; }
+    to   { transform: rotate(-1.3deg) translateY(0); opacity: 1; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .specimen, .seal, .seal::before { animation: none !important; }
+  }
+
+  /* corner eyelet + stitched edge */
+  .specimen::before {
+    content: "";
+    position: absolute;
+    top: -1.5px; left: -1.5px; right: -1.5px; bottom: -1.5px;
+    border: 1px dashed var(--blueprint);
+    pointer-events: none;
+    margin: 8px;
+  }
+
+  .eyelet {
+    position: absolute;
+    top: 14px; left: 14px;
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 40% 35%, #fff 0%, #cfd6d2 35%, var(--ink) 70%);
+    box-shadow: inset 0 0 0 1px var(--ink);
+  }
+
+  .tag-no {
+    position: absolute;
+    top: 16px; right: 22px;
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    color: var(--blueprint);
+    opacity: 0.75;
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5em;
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--blueprint);
+    margin-bottom: 1.4rem;
+  }
+
+  h1 {
+    margin: 0 0 0.15em;
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    font-size: clamp(2.1rem, 8vw, 3.1rem);
+    letter-spacing: 0.01em;
+    line-height: 1;
+    color: var(--ink);
+  }
+
+  h1 .bang {
+    color: var(--stamp);
+  }
+
+  .braille {
+    font-size: 0.95rem;
+    letter-spacing: 0.12em;
+    color: var(--ink);
+    opacity: 0.55;
+    margin: 0.5em 0 0.9em;
+  }
+
+  .role {
+    font-style: italic;
+    font-weight: 500;
+    font-size: 1.15rem;
+    color: var(--ink);
+    margin: 0 0 1.6rem;
+  }
+
+  .role::before {
+    content: "— ";
+    color: var(--amber);
+    font-style: normal;
+  }
+
+  .bio {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--ink);
+    opacity: 0.88;
+    margin: 0 0 1.8rem;
+    border-top: 1px solid var(--paper-line);
+    padding-top: 1.4rem;
+  }
+
+  /* seal / fingerprint mark */
+  .seal {
+    position: absolute;
+    bottom: -18px; right: -18px;
+    width: 64px; height: 64px;
+    background: var(--card);
+    border: 1.5px solid var(--ink);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+    box-shadow: 8px 8px 0 rgba(32,38,42,0.08);
+  }
+
+  .seal::before {
+    content: "";
+    position: absolute;
+    inset: -6px;
+    border-radius: 50%;
+    border: 1px solid var(--amber);
+    animation: pulse 2.6s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { transform: scale(0.94); opacity: 0.55; }
+    50%      { transform: scale(1.06); opacity: 0.15; }
+  }
+
+  /* ---------- lab notes / tags ---------- */
+
+  .notes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: 2.6rem;
+    max-width: 480px;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .note {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 0.45em 0.8em;
+    border: 1px solid var(--ink);
+    background: var(--card);
+    color: var(--ink);
+    transform: rotate(var(--r, 0deg));
+  }
+
+  .note:nth-child(2n) { --r: 1deg; }
+  .note:nth-child(3n) { --r: -1.5deg; }
+  .note:nth-child(5n) { --r: 0.8deg; }
+
+  footer {
+    margin-top: 3rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    color: var(--ink);
+    opacity: 0.5;
+    text-align: center;
+  }
+
+  footer a {
+    color: var(--blueprint);
+    text-decoration: none;
+    border-bottom: 1px dotted var(--blueprint);
+  }
+
+  a:focus-visible, button:focus-visible {
+    outline: 2px solid var(--stamp);
+    outline-offset: 3px;
+  }
+
+  @media (max-width: 420px) {
+    .specimen { padding: 2.4rem 1.6rem 2rem; }
+    .seal { width: 52px; height: 52px; font-size: 1.3rem; bottom: -14px; right: -14px; }
+  }
+</style>
+</head>
+<body>
+
+  <main class="specimen">
+    <span class="eyelet" aria-hidden="true"></span>
+    <span class="tag-no mono" aria-hidden="true">SPÉCIMEN — LAB.01</span>
+
+    <p class="eyebrow">👩🏽‍🔬 creative lab</p>
+
+    <h1>PET<span class="bang">!</span>TVOYOU</h1>
+
+    <p class="braille mono" aria-hidden="true">⠨⠍⠁⠗⠊⠑</p>
+
+    <p class="role">artist, engineer</p>
+
+    <p class="bio">
+      Hi 
+    </p>
+
+    <span class="seal" aria-hidden="true">🫆</span>
+  </main>
+
+  <nav class="notes" aria-label="Domaines explorés">
+    <span class="note">vision</span>
+    <span class="note">robotic</span>
+    <span class="note">pcb design</span>
+    <span class="note">art</span>
+    <span class="note">3D print</span>
+  </nav>
+
+  <footer>
+    <p>contact — <a href="mailto:hello@petitvoyou.me">hello@petitvoyou.me</a></p>
+  </footer>
+
+</body>
+</html>
