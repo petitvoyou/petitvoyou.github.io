@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PET!TVOYOU — creative lab</title>
+<title>pet!tvoyou - creative lab</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Fraunces:ital,opsz,wght@0,9..144,400;1,9..144,500&display=swap" rel="stylesheet">
@@ -158,7 +158,7 @@
     max-width: 34ch;
   }
 
-  /* the little black IC — the seal of the page */
+  /* the little black IC - the seal of the page */
   .ic {
     position: relative;
     width: 74px; height: 54px;
@@ -264,38 +264,27 @@
   .port {
     display: inline-flex;
     align-items: center;
-    gap: 0.45em;
     font-family: 'Space Mono', monospace;
-    font-size: 0.7rem;
+    font-size: 0.68rem;
     letter-spacing: 0.04em;
     text-transform: uppercase;
     text-decoration: none;
-    padding: 0.5em 0.85em;
+    padding: 0.4em 0.75em;
     border-radius: 2px;
-    background: var(--pcb-dark);
-    color: var(--silk);
+    background: var(--silk);
+    color: var(--pcb-dark);
     border: 1px solid var(--pcb-dark);
-    transition: background 0.15s ease, color 0.15s ease, transform 0.15s ease;
+    transform: rotate(var(--r, 0deg));
+    transition: background 0.15s ease, color 0.15s ease;
   }
 
-  .port::before {
-    content: "";
-    width: 7px; height: 7px;
-    border-radius: 50%;
-    background: var(--gold-bright);
-    box-shadow: 0 0 0 2px rgba(203,162,76,0.25);
-    flex: none;
-  }
+  .io .port:nth-child(2n) { --r: 1.2deg; }
+  .io .port:nth-child(3n) { --r: -1deg; }
+  .io .port:nth-child(5n) { --r: 0.6deg; }
 
   .port:hover, .port:focus-visible {
     background: var(--gold-bright);
     color: var(--pcb-dark);
-    transform: translateY(-2px);
-  }
-
-  .port:hover::before, .port:focus-visible::before {
-    background: var(--pcb-dark);
-    box-shadow: none;
   }
 
   footer {
@@ -329,20 +318,20 @@
       <span class="pad tr" aria-hidden="true"></span>
       <span class="pad bl" aria-hidden="true"></span>
       <span class="pad br" aria-hidden="true"></span>
-      <span class="ref-code mono" aria-hidden="true">S·098 — REV.A</span>
+      <span class="ref-code mono" aria-hidden="true">S·098 - REV.A</span>
       <span class="solder" style="top:44px; right:34px;" aria-hidden="true"></span>
       <span class="solder" style="bottom:52px; left:30px;" aria-hidden="true"></span>
 
       <p class="eyebrow">👩🏽‍🔬 creative lab</p>
 
-      <h1>PET<span class="bang">!</span>TVOYOU</h1>
+      <h1>pet<span class="bang">!</span>tvoyou</h1>
 
       <p class="braille mono" aria-hidden="true">⠨⠍⠁⠗⠊⠑</p>
 
-      <p class="role">artist, engineer</p>
+      <p class="role">creative technologist</p>
 
       <p class="bio">
-        Hi 
+        Hi
       </p>
 
       <div class="ic" aria-hidden="true">
@@ -355,8 +344,19 @@
     </div>
   </div>
 
-  <nav class="notes" aria-label="Liens">
-    <a class="notes" href="https://instagram.com/petitvoyou" target="_blank" rel="noopener">instagram</a>
+  <!--
+  <nav class="notes" aria-label="Domaines explorés">
+    <span class="note">vision industrielle</span>
+    <span class="note">robotique</span>
+    <span class="note">automatisation</span>
+    <span class="note">japon</span>
+    <span class="note">muay thaï</span>
+  </nav>
+  -->
+
+  <nav class="io" aria-label="Liens">
+    <span class="io-label mono">I/O</span>
+    <a class="port" href="https://instagram.com/petitvoyou" target="_blank" rel="noopener">instagram</a>
     <a class="port" href="https://github.com/petitvoyou" target="_blank" rel="noopener">github</a>
     <a class="port" href="https://linkedin.com/in/mariemonier" target="_blank" rel="noopener">linkedin</a>
     <a class="port" href="https://tiktok.com/@petitvoyou" target="_blank" rel="noopener">tiktok</a>
@@ -365,9 +365,9 @@
     <a class="port" href="https://petitvoyou.github.io/portfolio" target="_blank" rel="noopener">portfolio</a>
     <a class="port" href="https://petitvoyou.github.io/CVFRMarieMONIER.pdf" target="_blank" rel="noopener">cv</a>
   </nav>
-    
+
   <footer>
-    <p>contact — <a href="mailto:hello@petitvoyou.me">hello@petitvoyou.me</a></p>
+    <p>contact - <a href="mailto:hello@petitvo.you">hello@petitvo.you</a></p>
   </footer>
 
 </body>
