@@ -6,263 +6,366 @@
 <title>PET!TVOYOU — creative lab</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Fraunces:ital,opsz,wght@0,9..144,400;1,9..144,500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --paper: #F1EDE2;
-    --paper-line: #C7CEC5;
-    --ink: #20262A;
-    --blueprint: #2E4C6D;
-    --amber: #D98E2B;
-    --stamp: #B5432F;
-    --card: #FBF9F3;
+    --pink: #EAB2C4;
+    --pink-deep: #D48EA6;
+    --pink-pale: #F3D3DE;
+    --pcb: #1E4B39;
+    --pcb-dark: #163826;
+    --pcb-light: #2E6B4C;
+    --gold: #CBA24C;
+    --gold-bright: #E4C170;
+    --silver: #C7CCD1;
+    --silk: #EFEEE2;
+    --chip: #17181A;
   }
 
   * { box-sizing: border-box; }
 
-  html { scroll-behavior: smooth; }
-
   body {
     margin: 0;
-    background:
-      linear-gradient(var(--paper-line) 1px, transparent 1px) 0 0 / 28px 28px,
-      linear-gradient(90deg, var(--paper-line) 1px, transparent 1px) 0 0 / 28px 28px,
-      var(--paper);
-    background-attachment: fixed;
-    color: var(--ink);
-    font-family: 'Fraunces', serif;
     min-height: 100vh;
+    background:
+      repeating-linear-gradient(115deg, var(--pink) 0px, var(--pink) 2px, var(--pink-pale) 2px, var(--pink-pale) 3px),
+      repeating-linear-gradient(115deg, transparent 0 18px, rgba(212,142,166,0.35) 18px 19px),
+      linear-gradient(160deg, var(--pink-pale), var(--pink) 55%, var(--pink-deep));
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 6vh 5vw 4vh;
+    justify-content: center;
+    padding: 8vh 5vw 10vh;
+    font-family: 'Fraunces', serif;
+    color: var(--pcb-dark);
+    overflow-x: hidden;
   }
 
-  .mono {
-    font-family: 'JetBrains Mono', monospace;
-  }
+  .mono { font-family: 'Space Mono', monospace; }
 
-  /* ---------- specimen card ---------- */
+  /* ---------------- the board ---------------- */
 
-  .specimen {
+  .board-wrap {
     position: relative;
-    background: var(--card);
-    max-width: 480px;
+    max-width: 460px;
     width: 100%;
-    padding: 3rem 2.5rem 2.5rem;
-    border: 1.5px solid var(--ink);
-    transform: rotate(-1.3deg);
-    box-shadow: 8px 8px 0 rgba(32,38,42,0.08);
-    animation: settle 0.7s cubic-bezier(.2,.8,.2,1) both;
+  }
+
+  .board {
+    position: relative;
+    background: linear-gradient(155deg, var(--pcb-light), var(--pcb) 60%, var(--pcb-dark));
+    border-radius: 6px;
+    padding: 2.6rem 2rem 3.4rem;
+    box-shadow:
+      0 2px 0 rgba(255,255,255,0.06) inset,
+      10px 14px 0 rgba(22,56,38,0.22),
+      0 30px 50px -20px rgba(22,56,38,0.45);
+    animation: settle 0.8s cubic-bezier(.2,.8,.2,1) both;
   }
 
   @keyframes settle {
-    from { transform: rotate(-6deg) translateY(-12px); opacity: 0; }
-    to   { transform: rotate(-1.3deg) translateY(0); opacity: 1; }
+    from { transform: translateY(-16px); opacity: 0; }
+    to   { transform: translateY(0); opacity: 1; }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .specimen, .seal, .seal::before { animation: none !important; }
+    .board, .pad::after, .chip-label { animation: none !important; }
   }
 
-  /* corner eyelet + stitched edge */
-  .specimen::before {
+  /* faint copper trace lines etched into the board */
+  .board::before {
     content: "";
     position: absolute;
-    top: -1.5px; left: -1.5px; right: -1.5px; bottom: -1.5px;
-    border: 1px dashed var(--blueprint);
+    inset: 0;
+    border-radius: 6px;
+    background-image:
+      linear-gradient(90deg, transparent 46%, rgba(203,162,76,0.16) 46% 47%, transparent 47%),
+      linear-gradient(180deg, transparent 30%, rgba(203,162,76,0.13) 30% 31%, transparent 31%),
+      linear-gradient(90deg, transparent 72%, rgba(203,162,76,0.13) 72% 73%, transparent 73%);
     pointer-events: none;
-    margin: 8px;
   }
 
-  .eyelet {
+  /* corner pads, like mounting/castellated pads */
+  .pad {
     position: absolute;
-    top: 14px; left: 14px;
-    width: 14px; height: 14px;
+    width: 15px; height: 15px;
     border-radius: 50%;
-    background: radial-gradient(circle at 40% 35%, #fff 0%, #cfd6d2 35%, var(--ink) 70%);
-    box-shadow: inset 0 0 0 1px var(--ink);
+    background: radial-gradient(circle at 38% 32%, var(--gold-bright), var(--gold) 55%, #8a6d2c 100%);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.35);
   }
+  .pad.tl { top: 12px; left: 12px; }
+  .pad.tr { top: 12px; right: 12px; }
+  .pad.bl { bottom: 12px; left: 12px; }
+  .pad.br { bottom: 12px; right: 12px; }
 
-  .tag-no {
+  .ref-code {
     position: absolute;
-    top: 16px; right: 22px;
-    font-size: 0.68rem;
-    letter-spacing: 0.08em;
-    color: var(--blueprint);
-    opacity: 0.75;
+    top: 16px; left: 38px;
+    font-size: 0.62rem;
+    letter-spacing: 0.06em;
+    color: rgba(239,238,226,0.55);
   }
 
   .eyebrow {
     display: inline-flex;
     align-items: center;
     gap: 0.5em;
-    font-size: 0.75rem;
+    font-size: 0.72rem;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--blueprint);
-    margin-bottom: 1.4rem;
+    color: var(--gold-bright);
+    margin: 0 0 1.3rem;
   }
 
   h1 {
-    margin: 0 0 0.15em;
-    font-family: 'JetBrains Mono', monospace;
+    margin: 0 0 0.2em;
+    font-family: 'Space Mono', monospace;
     font-weight: 700;
-    font-size: clamp(2.1rem, 8vw, 3.1rem);
+    font-size: clamp(2rem, 7.5vw, 2.9rem);
     letter-spacing: 0.01em;
     line-height: 1;
-    color: var(--ink);
+    color: var(--silk);
+    text-shadow: 0 1px 0 rgba(0,0,0,0.25);
   }
 
-  h1 .bang {
-    color: var(--stamp);
-  }
+  h1 .bang { color: var(--gold-bright); }
 
   .braille {
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     letter-spacing: 0.12em;
-    color: var(--ink);
-    opacity: 0.55;
-    margin: 0.5em 0 0.9em;
+    color: rgba(239,238,226,0.5);
+    margin: 0.4em 0 1.1em;
   }
 
   .role {
+    display: inline-block;
     font-style: italic;
     font-weight: 500;
-    font-size: 1.15rem;
-    color: var(--ink);
-    margin: 0 0 1.6rem;
-  }
-
-  .role::before {
-    content: "— ";
-    color: var(--amber);
-    font-style: normal;
+    font-size: 1.05rem;
+    color: var(--pcb-dark);
+    background: var(--silk);
+    padding: 0.35em 0.9em;
+    border-radius: 2px;
+    margin: 0 0 1.7rem;
+    transform: rotate(-1deg);
   }
 
   .bio {
-    font-size: 1rem;
-    line-height: 1.6;
-    color: var(--ink);
-    opacity: 0.88;
-    margin: 0 0 1.8rem;
-    border-top: 1px solid var(--paper-line);
-    padding-top: 1.4rem;
+    font-size: 0.98rem;
+    line-height: 1.65;
+    color: rgba(239,238,226,0.88);
+    margin: 0 0 1rem;
+    max-width: 34ch;
   }
 
-  /* seal / fingerprint mark */
-  .seal {
-    position: absolute;
-    bottom: -18px; right: -18px;
-    width: 64px; height: 64px;
-    background: var(--card);
-    border: 1.5px solid var(--ink);
-    border-radius: 50%;
+  /* the little black IC — the seal of the page */
+  .ic {
+    position: relative;
+    width: 74px; height: 54px;
+    margin: 1.6rem 0 0.4rem;
+    background: linear-gradient(160deg, #232427, var(--chip));
+    border-radius: 4px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.6rem;
-    box-shadow: 8px 8px 0 rgba(32,38,42,0.08);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.4);
   }
 
-  .seal::before {
+  .ic span { font-size: 1.4rem; filter: grayscale(0.15); }
+
+  .ic .pin {
+    position: absolute;
+    width: 8px; height: 3px;
+    background: var(--silver);
+  }
+  .ic .pin.l1 { left: -8px; top: 12px; }
+  .ic .pin.l2 { left: -8px; top: 26px; }
+  .ic .pin.l3 { left: -8px; top: 40px; }
+  .ic .pin.r1 { right: -8px; top: 12px; }
+  .ic .pin.r2 { right: -8px; top: 26px; }
+  .ic .pin.r3 { right: -8px; top: 40px; }
+
+  /* dangling connector, echoing the reference photo */
+  .connector {
+    position: absolute;
+    bottom: -34px;
+    left: 46px;
+    width: 20px;
+    height: 40px;
+    background: linear-gradient(180deg, #262626, var(--chip));
+    border-radius: 0 0 3px 3px;
+  }
+  .connector::before, .connector::after {
     content: "";
     position: absolute;
-    inset: -6px;
+    top: -4px;
+    width: 3px; height: 8px;
+    background: var(--silver);
+  }
+  .connector::before { left: 4px; }
+  .connector::after { right: 4px; }
+
+  .solder {
+    position: absolute;
+    width: 9px; height: 9px;
     border-radius: 50%;
-    border: 1px solid var(--amber);
-    animation: pulse 2.6s ease-in-out infinite;
+    background: radial-gradient(circle at 35% 30%, #fff, var(--silver) 45%, #7d838a 100%);
+    opacity: 0.9;
   }
 
-  @keyframes pulse {
-    0%, 100% { transform: scale(0.94); opacity: 0.55; }
-    50%      { transform: scale(1.06); opacity: 0.15; }
-  }
-
-  /* ---------- lab notes / tags ---------- */
+  /* ---------------- tags below board ---------------- */
 
   .notes {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.6rem;
-    margin-top: 2.6rem;
-    max-width: 480px;
-    width: 100%;
+    gap: 0.55rem;
+    margin-top: 4.2rem;
+    max-width: 460px;
     justify-content: center;
   }
 
   .note {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.72rem;
-    letter-spacing: 0.05em;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.04em;
     text-transform: uppercase;
-    padding: 0.45em 0.8em;
-    border: 1px solid var(--ink);
-    background: var(--card);
-    color: var(--ink);
+    padding: 0.4em 0.75em;
+    border: 1px solid var(--pcb-dark);
+    background: var(--silk);
+    color: var(--pcb-dark);
+    border-radius: 2px;
     transform: rotate(var(--r, 0deg));
   }
+  .note:nth-child(2n) { --r: 1.2deg; }
+  .note:nth-child(3n) { --r: -1deg; }
+  .note:nth-child(5n) { --r: 0.6deg; }
 
-  .note:nth-child(2n) { --r: 1deg; }
-  .note:nth-child(3n) { --r: -1.5deg; }
-  .note:nth-child(5n) { --r: 0.8deg; }
+  .io {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1.3rem;
+    max-width: 460px;
+    justify-content: center;
+  }
+
+  .io-label {
+    width: 100%;
+    text-align: center;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--pcb-dark);
+    opacity: 0.55;
+    margin-bottom: 0.3rem;
+  }
+
+  .port {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45em;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 0.5em 0.85em;
+    border-radius: 2px;
+    background: var(--pcb-dark);
+    color: var(--silk);
+    border: 1px solid var(--pcb-dark);
+    transition: background 0.15s ease, color 0.15s ease, transform 0.15s ease;
+  }
+
+  .port::before {
+    content: "";
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--gold-bright);
+    box-shadow: 0 0 0 2px rgba(203,162,76,0.25);
+    flex: none;
+  }
+
+  .port:hover, .port:focus-visible {
+    background: var(--gold-bright);
+    color: var(--pcb-dark);
+    transform: translateY(-2px);
+  }
+
+  .port:hover::before, .port:focus-visible::before {
+    background: var(--pcb-dark);
+    box-shadow: none;
+  }
 
   footer {
-    margin-top: 3rem;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.72rem;
-    letter-spacing: 0.06em;
-    color: var(--ink);
-    opacity: 0.5;
+    margin-top: 2.2rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.05em;
+    color: var(--pcb-dark);
+    opacity: 0.65;
     text-align: center;
   }
 
   footer a {
-    color: var(--blueprint);
+    color: var(--pcb-dark);
     text-decoration: none;
-    border-bottom: 1px dotted var(--blueprint);
+    border-bottom: 1px dotted var(--pcb-dark);
   }
 
-  a:focus-visible, button:focus-visible {
-    outline: 2px solid var(--stamp);
-    outline-offset: 3px;
-  }
+  a:focus-visible { outline: 2px solid var(--pcb-dark); outline-offset: 3px; }
 
   @media (max-width: 420px) {
-    .specimen { padding: 2.4rem 1.6rem 2rem; }
-    .seal { width: 52px; height: 52px; font-size: 1.3rem; bottom: -14px; right: -14px; }
+    .board { padding: 2.2rem 1.5rem 3rem; }
   }
 </style>
 </head>
 <body>
 
-  <main class="specimen">
-    <span class="eyelet" aria-hidden="true"></span>
-    <span class="tag-no mono" aria-hidden="true">SPÉCIMEN — LAB.01</span>
+  <div class="board-wrap">
+    <div class="board">
+      <span class="pad tl" aria-hidden="true"></span>
+      <span class="pad tr" aria-hidden="true"></span>
+      <span class="pad bl" aria-hidden="true"></span>
+      <span class="pad br" aria-hidden="true"></span>
+      <span class="ref-code mono" aria-hidden="true">S·098 — REV.A</span>
+      <span class="solder" style="top:44px; right:34px;" aria-hidden="true"></span>
+      <span class="solder" style="bottom:52px; left:30px;" aria-hidden="true"></span>
 
-    <p class="eyebrow">👩🏽‍🔬 creative lab</p>
+      <p class="eyebrow">👩🏽‍🔬 creative lab</p>
 
-    <h1>PET<span class="bang">!</span>TVOYOU</h1>
+      <h1>PET<span class="bang">!</span>TVOYOU</h1>
 
-    <p class="braille mono" aria-hidden="true">⠨⠍⠁⠗⠊⠑</p>
+      <p class="braille mono" aria-hidden="true">⠨⠍⠁⠗⠊⠑</p>
 
-    <p class="role">artist, engineer</p>
+      <p class="role">artist, engineer</p>
 
-    <p class="bio">
-      Hi 
-    </p>
+      <p class="bio">
+        Hi 
+      </p>
 
-    <span class="seal" aria-hidden="true">🫆</span>
-  </main>
+      <div class="ic" aria-hidden="true">
+        <span class="pin l1"></span><span class="pin l2"></span><span class="pin l3"></span>
+        <span class="pin r1"></span><span class="pin r2"></span><span class="pin r3"></span>
+        <span>🫆</span>
+      </div>
 
-  <nav class="notes" aria-label="Domaines explorés">
-    <span class="note">vision</span>
-    <span class="note">robotic</span>
-    <span class="note">pcb design</span>
-    <span class="note">art</span>
-    <span class="note">3D print</span>
+      <div class="connector" aria-hidden="true"></div>
+    </div>
+  </div>
+
+  <nav class="notes" aria-label="Liens">
+    <a class="notes" href="https://instagram.com/petitvoyou" target="_blank" rel="noopener">instagram</a>
+    <a class="port" href="https://github.com/petitvoyou" target="_blank" rel="noopener">github</a>
+    <a class="port" href="https://linkedin.com/in/mariemonier" target="_blank" rel="noopener">linkedin</a>
+    <a class="port" href="https://tiktok.com/@petitvoyou" target="_blank" rel="noopener">tiktok</a>
+    <a class="port" href="https://are.na/petitvoyou" target="_blank" rel="noopener">are.na</a>
+    <a class="port" href="https://sublime.app/petitvoyou" target="_blank" rel="noopener">sublime</a>
+    <a class="port" href="https://petitvoyou.github.io/portfolio" target="_blank" rel="noopener">portfolio</a>
+    <a class="port" href="https://petitvoyou.github.io/CVFRMarieMONIER.pdf" target="_blank" rel="noopener">cv</a>
   </nav>
-
+    
   <footer>
     <p>contact — <a href="mailto:hello@petitvoyou.me">hello@petitvoyou.me</a></p>
   </footer>
